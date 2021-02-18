@@ -24,4 +24,5 @@ public class viwIssues {
 
     @Column
     private int importance;
+
 }
