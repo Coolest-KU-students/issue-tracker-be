@@ -11,22 +11,23 @@ import lombok.Data;
 public class IssueStep {
 
     @Id
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "issue_id")
     private Issue issue;
 
     @Column
-    private LocalDateTime completed;
-
-    @Column
-    private int stepId;
-
-    @Column
     private String responsible;
 
     @Column
+    private Long stepId;
+
+    @Column
     private String comment;
+
+    @Column
+    private LocalDateTime completed;
 
 }

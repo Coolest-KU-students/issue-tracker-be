@@ -12,7 +12,7 @@ public class IssueStepFactory {
         IssueStep issueStep = new IssueStep();
         issueStep.setResponsible(Login);
         issueStep.setIssue(issue);
-        issueStep.setStepId(1);
+        issueStep.setStepId(1L);
         issueStep.setComment(issue.getDescription());
         return issueStep;
     }

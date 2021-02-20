@@ -39,7 +39,7 @@ public class IssuesController {
     }
 
     @PostMapping("/")
-    public int createIssue(@RequestBody MandatoryFields fields){
+    public Long createIssue(@RequestBody MandatoryFields fields){
         Issue issue = issuesService.createIssue(issueFactory.createIssue(fields.name, fields.description, fields.importance));
         return issue.getId();
     }

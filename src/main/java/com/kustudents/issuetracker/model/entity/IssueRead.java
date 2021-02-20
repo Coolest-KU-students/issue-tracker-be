@@ -8,10 +8,9 @@ import lombok.Data;
 @Data
 @Entity(name = "ciw_Issues")
 public class IssueRead {
-    
-    @Column
+
     @Id
-    private int id;
+    private Long id;
 
     @Column
     private LocalDateTime closed;
