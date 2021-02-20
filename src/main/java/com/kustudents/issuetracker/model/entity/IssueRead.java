@@ -5,13 +5,12 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import lombok.Data;
 
-@Entity(name = "ciw_Issues")
 @Data
-public class ciwIssues {
-    
-    @Column
+@Entity(name = "ciw_Issues")
+public class IssueRead {
+
     @Id
-    private int id;
+    private Long id;
 
     @Column
     private LocalDateTime closed;
@@ -27,4 +26,5 @@ public class ciwIssues {
 
     @Column
     private String currentStep;
+
 }
