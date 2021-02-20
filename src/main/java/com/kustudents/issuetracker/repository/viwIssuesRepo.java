@@ -1,6 +1,6 @@
-package com.kustudents.issuetracker.data.repo;
+package com.kustudents.issuetracker.repository;
 
-import com.kustudents.issuetracker.data.enitity.viwIssues;
+import com.kustudents.issuetracker.model.entity.viwIssues;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

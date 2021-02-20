@@ -120,6 +120,7 @@ INSERT INTO tbl_Issues(name, description, importance)
 SELECT 'Issue Tacker is not working', 'The issue tracker is not working since it has not been built yet', 1;
 
 CREATE TABLE tbl_issues_steps (
+id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 issue_id INT(6) UNSIGNED NOT NULL,
 responsible VARCHAR(30) NOT NULL,
 step_id INT(6) UNSIGNED NOT NULL,
@@ -129,7 +130,6 @@ created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 created_by VARCHAR(30) NULL,
 updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 updated_by VARCHAR(30) NULL,
-PRIMARY KEY (issue_id, responsible, step_id),
 FOREIGN KEY (issue_id) REFERENCES tbl_Issues(id) ON DELETE CASCADE,
 FOREIGN KEY (responsible) REFERENCES tbl_Users_Credentials(login),
 FOREIGN KEY (step_id) REFERENCES tbl_Steps(id)
@@ -147,7 +147,7 @@ CREATE TRIGGER utr_issues_steps
 
 CREATE VIEW viw_issues_steps
 AS
-    SELECT issue_id, responsible, step_id, comment, completed
+    SELECT id, issue_id, responsible, step_id, comment, completed
     FROM tbl_issues_steps;
 
 INSERT INTO tbl_issues_steps (issue_id, responsible, step_id, comment)

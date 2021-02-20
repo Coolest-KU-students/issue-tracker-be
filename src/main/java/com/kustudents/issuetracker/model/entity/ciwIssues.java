@@ -1,13 +1,13 @@
-package com.kustudents.issuetracker.data.enitity;
+package com.kustudents.issuetracker.model.entity;
 
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import lombok.Data;
 
-@Entity(name = "viw_Issues")
+@Entity(name = "ciw_Issues")
 @Data
-public class viwIssues {
+public class ciwIssues {
     
     @Column
     @Id
@@ -25,4 +25,6 @@ public class viwIssues {
     @Column
     private int importance;
 
+    @Column
+    private String currentStep;
 }
