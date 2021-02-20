@@ -1,6 +1,5 @@
 package com.kustudents.issuetracker.controller;
 
-
 import java.util.List;
 
 import com.kustudents.issuetracker.model.entity.Issue;
