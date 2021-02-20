@@ -3,50 +3,45 @@ package com.kustudents.issuetracker.controller;
 
 import java.util.List;
 
+import com.kustudents.issuetracker.model.entity.Issue;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import com.kustudents.issuetracker.model.entity.ciwIssues;
-import com.kustudents.issuetracker.model.entity.viwIssues;
-import com.kustudents.issuetracker.repository.viwIssuesRepo;
-import com.kustudents.issuetracker.service.viwIssuesService;
-import com.kustudents.issuetracker.service.factories.IssueFactory;
-import com.kustudents.issuetracker.service.ciwIssuesService;
+import com.kustudents.issuetracker.model.entity.IssueRead;
+import com.kustudents.issuetracker.service.IssuesService;
+import com.kustudents.issuetracker.service.factory.IssueFactory;
+import com.kustudents.issuetracker.service.IssuesReadService;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/Issues")
 public class IssuesController {
-    private final viwIssuesService vIssuesService;
-    private final ciwIssuesService cIssuesService;
+
+    private final IssuesService issuesService;
+    private final IssuesReadService issuesReadService;
     private final IssueFactory issueFactory;
-    public IssuesController(viwIssuesService vIssuesService, ciwIssuesService cIssuesService, IssueFactory issueFactory){
-        this.vIssuesService = vIssuesService;
-        this.cIssuesService = cIssuesService;
-        this.issueFactory = issueFactory;
-    }
-
-    private static class MandatoryFields{
-       public String name;
-       public String description;
-       public int importance;
-
-    }
 
     @GetMapping("/")
 	@CrossOrigin(origins = "*")
-    public List<ciwIssues> getAll() {
-        return cIssuesService.getAllIssues();
+    public List<IssueRead> getAllIssues() {
+        return issuesReadService.getAllIssues();
     }
 
     @GetMapping("/{id}")
-    public ciwIssues getIssues(@PathVariable("id") Long id) {
-        return cIssuesService.getIssueByID(id);
+    public IssueRead getIssueById(@PathVariable("id") Long id) {
+        return issuesReadService.getIssueById(id);
     }
-        //TODO: return ID to relink to the Issue page
+
+    private static class MandatoryFields {
+        public String name;
+        public String description;
+        public int importance;
+    }
+
     @PostMapping("/")
-    public void createIssue(@RequestBody MandatoryFields mFields){
-        vIssuesService.createIssues(issueFactory.createIssue(mFields.name, mFields.description, mFields.importance));
-
+    public int createIssue(@RequestBody MandatoryFields fields){
+        Issue issue = issuesService.createIssue(issueFactory.createIssue(fields.name, fields.description, fields.importance));
+        return issue.getId();
     }
 
-  
 }

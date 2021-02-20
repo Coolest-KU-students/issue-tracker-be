@@ -5,9 +5,9 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import lombok.Data;
 
-@Entity(name = "viw_Issues")
 @Data
-public class viwIssues {
+@Entity(name = "viw_Issues")
+public class Issue {
     
     @Column
     @Id
@@ -25,4 +25,5 @@ public class viwIssues {
 
     @Column
     private int importance;
+
 }

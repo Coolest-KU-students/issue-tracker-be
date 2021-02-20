@@ -6,18 +6,16 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import lombok.Data;
 
-@Entity(name = "viw_Issues_Steps")
 @Data
-public class viwIssuesSteps {
+@Entity(name = "viw_Issues_Steps")
+public class IssueStep {
 
-    
     @Id
     private int id;
 
     @ManyToOne
     @JoinColumn(name = "issue_id")
-    private viwIssues vIssues;
-
+    private Issue issue;
 
     @Column
     private LocalDateTime completed;
@@ -30,4 +28,5 @@ public class viwIssuesSteps {
 
     @Column
     private String comment;
+
 }

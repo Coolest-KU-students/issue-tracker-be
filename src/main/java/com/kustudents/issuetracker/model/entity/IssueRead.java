@@ -5,9 +5,9 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import lombok.Data;
 
-@Entity(name = "ciw_Issues")
 @Data
-public class ciwIssues {
+@Entity(name = "ciw_Issues")
+public class IssueRead {
     
     @Column
     @Id
@@ -27,4 +27,5 @@ public class ciwIssues {
 
     @Column
     private String currentStep;
+
 }
