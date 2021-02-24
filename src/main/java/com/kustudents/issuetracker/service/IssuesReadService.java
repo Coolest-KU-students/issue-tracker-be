@@ -5,6 +5,7 @@ import java.util.Optional;
 import com.kustudents.issuetracker.model.entity.IssueRead;
 import com.kustudents.issuetracker.repository.IssueReadRepository;
 
+import com.kustudents.issuetracker.repository.UsersRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 
@@ -20,6 +21,7 @@ import org.springframework.web.server.ResponseStatusException;
 public class IssuesReadService {
 
     private final IssueReadRepository issueReadRepository;
+    private final UsersRepository usersRepository;
 
     public IssueRead getIssueById(Long id) {
         return issueReadRepository.findById(id).orElseThrow(() ->
@@ -31,7 +33,6 @@ public class IssuesReadService {
             return issueReadRepository.findAll();
     }
 
-
     public Page<IssueRead> getAllIssuesPaginatedAndFiltered(Boolean hideClosed,
                                                             Boolean showUserCreated,
                                                             Boolean showUserResponsible,
@@ -42,9 +43,9 @@ public class IssuesReadService {
         Pageable pageRequest = PageRequest.of(page, size, ascending?Sort.by(orderBy).ascending():Sort.by(orderBy).descending());
 
         Optional<String> userCreated = Optional.empty();
-        if(showUserCreated) userCreated = issueReadRepository.GetUserName();
+        if(showUserCreated) userCreated = usersRepository.getUsername();
         Optional<String> userResponsible = Optional.empty();
-        if(showUserResponsible) userResponsible = issueReadRepository.GetUserName();
+        if(showUserResponsible) userResponsible = usersRepository.getUsername();
         return issueReadRepository.getAllIssuesPaginatedAndFiltered(hideClosed, userCreated.orElse(null), userResponsible.orElse(null), pageRequest);
     }
 

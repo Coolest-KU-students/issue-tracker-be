@@ -14,6 +14,6 @@ public interface UsersRepository extends JpaRepository<User, String> {
     Optional<UserCredentials> findUserByLogin(String login);
 
     @Query( nativeQuery=true, value="SELECT fnc_user_login()")
-    Optional<String> GetUserName();
+    Optional<String> getUsername();
 
 }
