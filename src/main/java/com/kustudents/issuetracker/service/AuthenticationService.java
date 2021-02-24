@@ -29,8 +29,8 @@ public class AuthenticationService {
         usersCredentialsRepository.save(userCredentials);
 
         UserCredentials newSessionUserCredentials = usersCredentialsRepository.findUserByLogin(userCredentials.getLogin()).orElseThrow(() ->
-                new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                        "User credentials creation failed"));
+                new ResponseStatusException(HttpStatus.BAD_REQUEST, "User credentials creation failed"));
+
         User user = new User();
 
         user.setFirstName(firstName);

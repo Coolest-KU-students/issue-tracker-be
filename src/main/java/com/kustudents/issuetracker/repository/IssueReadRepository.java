@@ -3,7 +3,6 @@ package com.kustudents.issuetracker.repository;
 import java.util.Optional;
 
 import com.kustudents.issuetracker.model.entity.IssueRead;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.data.domain.Pageable;
@@ -23,7 +22,5 @@ public interface IssueReadRepository extends JpaRepository<IssueRead, Long> {
             "AND (IR.createdBy = :userCreated OR :userCreated IS NULL)" +
             "AND (IR.currentResponsible = :userResponsible OR :userResponsible IS NULL)" )
     Page<IssueRead> getAllIssuesPaginatedAndFiltered(Boolean showClosed, String userCreated, String userResponsible, Pageable p);
-
-
 
 }

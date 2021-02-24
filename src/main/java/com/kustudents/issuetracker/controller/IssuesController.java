@@ -4,7 +4,6 @@ import com.kustudents.issuetracker.model.entity.Issue;
 import com.kustudents.issuetracker.utility.DefaultPagination;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
 import org.springframework.data.domain.Page;
 import com.kustudents.issuetracker.model.entity.IssueRead;
 import com.kustudents.issuetracker.service.IssuesService;
@@ -35,13 +34,13 @@ public class IssuesController {
         @RequestParam(defaultValue = "1") Boolean hideClosed,
         @RequestParam(defaultValue = "0") Boolean showCreatedByUser,
         @RequestParam(defaultValue = "0") Boolean showIssuesWhereUserIsResponsible) {
-        return issuesReadService.getAllIssuesPaginatedAndFiltered(hideClosed
-                                                                , showCreatedByUser
-                                                                , showIssuesWhereUserIsResponsible
-                                                                , page
-                                                                , size
-                                                                , orderBy
-                                                                , ascending);
+        return issuesReadService.getAllIssuesPaginatedAndFiltered(hideClosed,
+                                                                  showCreatedByUser,
+                                                                  showIssuesWhereUserIsResponsible,
+                                                                  page,
+                                                                  size,
+                                                                  orderBy,
+                                                                  ascending);
     }
 
     @GetMapping("/{id}")

@@ -32,20 +32,20 @@ public class IssuesReadService {
     }
 
 
-    public Page<IssueRead> getAllIssuesPaginatedAndFiltered(Boolean hideClosed
-                                                            , Boolean showUserCreated
-                                                            , Boolean showUserResponsible
-                                                            , Integer page
-                                                            , Integer size
-                                                            , String orderBy
-                                                            , Boolean ascending){
+    public Page<IssueRead> getAllIssuesPaginatedAndFiltered(Boolean hideClosed,
+                                                            Boolean showUserCreated,
+                                                            Boolean showUserResponsible,
+                                                            Integer page,
+                                                            Integer size,
+                                                            String orderBy,
+                                                            Boolean ascending){
         Pageable pageRequest = PageRequest.of(page, size, ascending?Sort.by(orderBy).ascending():Sort.by(orderBy).descending());
 
         Optional<String> userCreated = Optional.empty();
-        if(showUserCreated) userCreated = issueReadRepo.GetUserName();
+        if(showUserCreated) userCreated = issueReadRepository.GetUserName();
         Optional<String> userResponsible = Optional.empty();
-        if(showUserResponsible) userResponsible = issueReadRepo.GetUserName();
-        return issueReadRepo.getAllIssuesPaginatedAndFiltered(hideClosed, userCreated.orElse(null), userResponsible.orElse(null), pageRequest);
+        if(showUserResponsible) userResponsible = issueReadRepository.GetUserName();
+        return issueReadRepository.getAllIssuesPaginatedAndFiltered(hideClosed, userCreated.orElse(null), userResponsible.orElse(null), pageRequest);
     }
 
 }
