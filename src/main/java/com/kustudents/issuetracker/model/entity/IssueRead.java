@@ -27,4 +27,9 @@ public class IssueRead {
     @Column
     private String currentStep;
 
+    @Column
+    private String currentResponsible;
+
+    @Column
+    private String createdBy;
 }
