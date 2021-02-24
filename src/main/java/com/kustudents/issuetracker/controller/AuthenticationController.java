@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.transaction.Transactional;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
@@ -23,6 +25,7 @@ public class AuthenticationController {
         public String lastName;
     }
 
+    @Transactional
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody UserInformation userInformation) {
         authenticationService.register(userInformation.login, userInformation.password, userInformation.firstName, userInformation.lastName);

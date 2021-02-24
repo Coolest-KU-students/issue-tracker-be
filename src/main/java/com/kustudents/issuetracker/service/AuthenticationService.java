@@ -33,10 +33,10 @@ public class AuthenticationService {
                         "User credentials creation failed"));
         User user = new User();
 
-        //TODO: Error handling for lines 42-45, if an exception occurs - user credentials need to be deleted
         user.setFirstName(firstName);
         user.setLastName(lastName);
         user.setUserCredentials(newSessionUserCredentials);
+
         usersRepository.save(user);
     }
 

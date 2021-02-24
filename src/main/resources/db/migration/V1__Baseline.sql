@@ -42,10 +42,6 @@ PRIMARY KEY (login),
 FOREIGN KEY (login) REFERENCES tbl_Users_Credentials(login)
 );
 
-ALTER TABLE tbl_users
-ADD COLUMN full_name VARCHAR(60)
-GENERATED ALWAYS AS (`first_name` + " " + `last_name`) VIRTUAL;
-
 CREATE TRIGGER itr_users
   BEFORE INSERT ON tbl_users
   FOR EACH ROW
@@ -58,7 +54,7 @@ CREATE TRIGGER utr_users
 
 CREATE VIEW viw_users
 AS
-    SELECT login, first_name, last_name, full_name
+    SELECT login, first_name, last_name
     FROM tbl_users;
 
 CREATE TABLE tbl_steps (
