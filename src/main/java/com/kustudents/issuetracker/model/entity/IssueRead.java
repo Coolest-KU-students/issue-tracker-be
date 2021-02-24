@@ -1,6 +1,5 @@
 package com.kustudents.issuetracker.model.entity;
 
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import lombok.Data;
@@ -10,21 +9,22 @@ import lombok.Data;
 public class IssueRead {
 
     @Id
+    @Column(name = "ID")
     private Long id;
 
-    @Column
+    @Column(name = "closed")
     private LocalDateTime closed;
 
-    @Column
+    @Column(name = "name")
     private String name;
 
-    @Column
+    @Column(name = "description")
     private String description;
 
-    @Column
+    @Column(name = "importance")
     private int importance;
 
-    @Column
+    @Column(name = "current_step")
     private String currentStep;
 
     @Column

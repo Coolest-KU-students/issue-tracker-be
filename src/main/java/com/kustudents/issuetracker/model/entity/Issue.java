@@ -1,6 +1,5 @@
 package com.kustudents.issuetracker.model.entity;
 
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -13,20 +12,21 @@ public class Issue {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
-    @Column
+    @Column(name = "closed")
     private LocalDateTime closed;
 
-    @Column
     @NotBlank(message = "Enter the name of the Issue")
+    @Column(name = "name")
     private String name;
 
-    @Column
+    @Column(name = "description")
     private String description;
 
-    @Column
     @NotNull
+    @Column(name = "importance")
     private int importance;
 
 }

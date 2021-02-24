@@ -2,7 +2,6 @@ package com.kustudents.issuetracker.model.entity;
 
 import javax.persistence.*;
 
-
 import java.time.LocalDateTime;
 import lombok.Data;
 
@@ -12,22 +11,23 @@ public class IssueStep {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @ManyToOne
     @JoinColumn(name = "issue_id")
     private Issue issue;
 
-    @Column
+    @Column(name = "responsible")
     private String responsible;
 
-    @Column
+    @Column(name = "step_id")
     private Long stepId;
 
-    @Column
+    @Column(name = "comment")
     private String comment;
 
-    @Column
+    @Column(name = "completed")
     private LocalDateTime completed;
 
 }

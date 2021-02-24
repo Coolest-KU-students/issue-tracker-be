@@ -1,9 +1,7 @@
 package com.kustudents.issuetracker.service;
 
-import java.util.List;
-
 import com.kustudents.issuetracker.model.entity.Issue;
-import com.kustudents.issuetracker.repository.IssuesRepo;
+import com.kustudents.issuetracker.repository.IssuesRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,11 +9,11 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class IssuesService {
 
-    private final IssuesRepo issuesRepo;
+    private final IssuesRepository issuesRepository;
     private final IssuesStepsService issuesStepsService;
 
     public Issue createIssue(Issue providedIssue){
-        Issue savedIssue = issuesRepo.saveAndFlush(providedIssue);
+        Issue savedIssue = issuesRepository.saveAndFlush(providedIssue);
         issuesStepsService.createFirstIssueStep(savedIssue);
         return savedIssue;
     }
