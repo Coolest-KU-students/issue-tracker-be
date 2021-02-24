@@ -12,10 +12,6 @@ import org.springframework.data.jpa.repository.Query;
 
 @Repository
 public interface IssueReadRepository extends JpaRepository<IssueRead, Long> {
-    
-    //TODO: move to users once it's created
-    @Query( nativeQuery=true, value="SELECT fnc_user_login()")
-    Optional<String> GetUserName();
 
     @Query("SELECT IR FROM ciw_Issues IR where " +
             "(( IR.closed IS NULL AND  :showClosed = true) OR (:showClosed = false))" +
