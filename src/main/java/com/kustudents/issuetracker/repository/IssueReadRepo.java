@@ -14,7 +14,7 @@ public interface IssueReadRepo extends CrudRepository<IssueRead, Long> {
     
     //TODO: move to users once it's created
     @Query( nativeQuery=true, value="SELECT fnc_user_login()")
-    public Optional<String> GetUserName();
+    Optional<String> GetUserName();
     
     @Query("SELECT IR FROM ciw_Issues IR where " +
             "(( IR.closed IS NULL AND  :showClosed = true) OR (:showClosed = false))" +

@@ -1,6 +1,5 @@
 package com.kustudents.issuetracker.service;
 
-import java.util.List;
 import java.util.Optional;
 
 import com.kustudents.issuetracker.model.entity.IssueRead;
@@ -40,12 +39,13 @@ public class IssuesReadService {
                                                             , Integer size
                                                             , String orderBy
                                                             , Boolean ascending){
-        Pageable pageRequest = PageRequest.of(page,size,ascending?Sort.by(orderBy).ascending():Sort.by(orderBy).descending());
-            
+        Pageable pageRequest = PageRequest.of(page, size, ascending?Sort.by(orderBy).ascending():Sort.by(orderBy).descending());
+
         Optional<String> userCreated = Optional.empty();
         if(showUserCreated) userCreated = issueReadRepo.GetUserName();
         Optional<String> userResponsible = Optional.empty();
         if(showUserResponsible) userResponsible = issueReadRepo.GetUserName();
         return issueReadRepo.getAllIssuesPaginatedAndFiltered(hideClosed, userCreated.orElse(null), userResponsible.orElse(null), pageRequest);
     }
+
 }
