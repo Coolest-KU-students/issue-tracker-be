@@ -43,9 +43,9 @@ public class IssuesReadService {
         Pageable pageRequest = PageRequest.of(page, size, ascending?Sort.by(orderBy).ascending():Sort.by(orderBy).descending());
 
         Optional<String> userCreated = Optional.empty();
-        if(showUserCreated) userCreated = usersRepository.getUsername();
+        if(showUserCreated) userCreated = usersRepository.getLogin();
         Optional<String> userResponsible = Optional.empty();
-        if(showUserResponsible) userResponsible = usersRepository.getUsername();
+        if(showUserResponsible) userResponsible = usersRepository.getLogin();
         return issueReadRepository.getAllIssuesPaginatedAndFiltered(hideClosed, userCreated.orElse(null), userResponsible.orElse(null), pageRequest);
     }
 

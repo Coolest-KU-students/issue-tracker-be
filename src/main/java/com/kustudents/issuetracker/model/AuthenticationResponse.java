@@ -1,10 +1,17 @@
 package com.kustudents.issuetracker.model;
 
-import lombok.RequiredArgsConstructor;
-
-@RequiredArgsConstructor
 public class AuthenticationResponse {
 
     private final String token;
+
+    //TODO: add user login
+
+    public AuthenticationResponse(String token) {
+        this.token = token;
+    }
+
+    public String getToken() {
+        return token;
+    }
 
 }

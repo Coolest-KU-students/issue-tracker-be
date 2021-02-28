@@ -27,11 +27,14 @@ public class AuthenticationController {
         public String lastName;
     }
 
-//    @PostMapping("/login")
-//    public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request) {
-//        return ResponseEntity.ok(new AuthenticationResponse(authenticationService.authenticate(request)));
-//    }
+    //TODO: Find a global service or bean, which would automatically check token from header and then allow access to api ends
 
+    @PostMapping("/login")
+    public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request) {
+        return ResponseEntity.ok(new AuthenticationResponse(authenticationService.authenticate(request)));
+    }
+
+    //TODO: returns if token is legit and returns a boolean (and if true: user information, ex. login)
 //    @PostMapping("/auth")
 //    public ResponseEntity<AuthenticationResponse> getAuthenticationStatus(@RequestBody AuthenticationRequest request) {
 //        return ResponseEntity.ok(new AuthenticationResponse(authenticationService.authenticate(request)));
