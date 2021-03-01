@@ -12,8 +12,7 @@ import com.kustudents.issuetracker.service.IssuesReadService;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin(origins = "*")
-@RequestMapping("/api/Issues")
+@RequestMapping("/api/issues")
 public class IssuesController {
 
     private final IssuesService issuesService;

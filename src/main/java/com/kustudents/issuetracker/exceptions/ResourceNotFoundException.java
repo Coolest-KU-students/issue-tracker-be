@@ -1,11 +1,9 @@
 package com.kustudents.issuetracker.exceptions;
 
-//public class ResourceNotFoundException extends RuntimeException {
-//
-//    public ResourceNotFoundException(String message) {
-//        super(message);
-//    }
-//}
+public class ResourceNotFoundException extends RuntimeException {
 
-public class ResourceNotFoundException {
+    public ResourceNotFoundException(String message) {
+        super(message);
+    }
+
 }
