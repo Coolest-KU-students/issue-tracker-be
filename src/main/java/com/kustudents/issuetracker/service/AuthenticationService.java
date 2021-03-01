@@ -104,9 +104,8 @@ public class AuthenticationService {
         return verifier.verify(token);
     }
 
-    public User loadUserDetails(String login) {
+    public UserCredentials loadUserDetails(String login) {
         return usersCredentialsRepository.findUserByLogin(login)
-                .map(user -> new User())
                 .orElseThrow(() -> new ResourceNotFoundException("User by login not found = " + login));
     }
 

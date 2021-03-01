@@ -18,8 +18,8 @@ public class UserCredentials {
     @Column(name = "is_expired")
     private boolean isExpired;
 
-    @OneToOne(mappedBy = "userCredentials", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
-    private User user;
+//    @OneToOne(mappedBy = "userCredentials", cascade = CascadeType.ALL)
+//    @PrimaryKeyJoinColumn
+//    private User user;
 
 }

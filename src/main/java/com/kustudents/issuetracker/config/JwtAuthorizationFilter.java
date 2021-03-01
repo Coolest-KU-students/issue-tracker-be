@@ -39,6 +39,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
                 var userDetails = authenticationService.loadUserDetails(login.asString());
                 var usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
                         userDetails,
+                        null,
                         null
                 );
 
