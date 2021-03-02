@@ -15,7 +15,6 @@ import com.kustudents.issuetracker.utility.TokenConstants;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AuthorizationServiceException;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -25,7 +24,6 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
-import java.util.List;
 import java.util.function.Supplier;
 
 @Service
@@ -51,13 +49,7 @@ public class AuthenticationService {
 
     public String authenticate(AuthenticationRequest request) {
         tryAuthenticate(request);
-
-        return JWT.create()
-                .withClaim("login", request.getLogin())
-                //.withClaim("importantInfo", "Spongebob")
-                .withIssuer("kustudents")
-                .withExpiresAt(getExpiration())
-                .sign(algorithm);
+        return createNewJWT(request.getLogin());
     }
 
     private void tryAuthenticate(AuthenticationRequest request) {
@@ -112,10 +104,13 @@ public class AuthenticationService {
     public String overwriteExistingToken(String token) {
         var decodedJWT = decodeToken(token.substring(TokenConstants.TOKEN_PREFIX.length()));
         Claim login = decodedJWT.getClaim("login");
-        var userDetails = loadUserDetails(login.asString());
+        return createNewJWT(login.asString());
+    }
 
+    private String createNewJWT(String login) {
         return JWT.create()
-                .withClaim("login", userDetails.getLogin())
+                .withClaim("login", login)
+                //.withClaim("importantInfo", "Example")
                 .withIssuer("kustudents")
                 .withExpiresAt(getExpiration())
                 .sign(algorithm);
