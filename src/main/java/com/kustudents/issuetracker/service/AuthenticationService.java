@@ -39,7 +39,7 @@ public class AuthenticationService {
     private final Algorithm algorithm;
 
     public AuthenticationService(@Value("${auth.secret}") String secret,
-                                 @Value("${auth.jwtExpirationInMinutes:5}") int expirationInMinutes,
+                                 @Value("${auth.expirationInMinutes}") int expirationInMinutes,
                                  UsersRepository usersRepository,
                                  UsersCredentialsRepository usersCredentialsRepository) {
         this.usersCredentialsRepository = usersCredentialsRepository;
@@ -112,9 +112,10 @@ public class AuthenticationService {
     public String overwriteExistingToken(String token) {
         var decodedJWT = decodeToken(token.substring(TokenConstants.TOKEN_PREFIX.length()));
         Claim login = decodedJWT.getClaim("login");
+        var userDetails = loadUserDetails(login.asString());
 
         return JWT.create()
-                .withClaim("login", login.toString())
+                .withClaim("login", userDetails.getLogin())
                 .withIssuer("kustudents")
                 .withExpiresAt(getExpiration())
                 .sign(algorithm);
