@@ -1,9 +1,8 @@
 package com.kustudents.issuetracker.config;
 
+import com.kustudents.issuetracker.exceptions.ResourceNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import com.kustudents.issuetracker.exceptions.ResourceNotFoundException;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

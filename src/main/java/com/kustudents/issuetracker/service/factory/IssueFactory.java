@@ -1,7 +1,6 @@
 package com.kustudents.issuetracker.service.factory;
 
 import com.kustudents.issuetracker.model.entity.Issue;
-
 import org.springframework.stereotype.Service;
 
 @Service

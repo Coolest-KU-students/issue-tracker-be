@@ -1,8 +1,7 @@
 package com.kustudents.issuetracker.model.entity;
 
-import lombok.Data;
-
 import javax.persistence.*;
+import lombok.Data;
 
 @Data
 @Entity(name = "viw_users_credentials")
@@ -17,9 +16,5 @@ public class UserCredentials {
 
     @Column(name = "is_expired")
     private boolean isExpired;
-
-//    @OneToOne(mappedBy = "userCredentials", cascade = CascadeType.ALL)
-//    @PrimaryKeyJoinColumn
-//    private User user;
 
 }

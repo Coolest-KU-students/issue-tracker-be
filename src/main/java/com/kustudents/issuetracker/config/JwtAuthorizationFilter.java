@@ -3,19 +3,18 @@ package com.kustudents.issuetracker.config;
 import com.auth0.jwt.interfaces.Claim;
 import com.kustudents.issuetracker.service.AuthenticationService;
 import com.kustudents.issuetracker.utility.TokenConstants;
-import org.apache.logging.log4j.LogManager;
+import java.io.IOException;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
-
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 

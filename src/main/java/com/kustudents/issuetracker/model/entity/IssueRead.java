@@ -1,7 +1,7 @@
 package com.kustudents.issuetracker.model.entity;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
+import javax.persistence.*;
 import lombok.Data;
 
 @Data
@@ -32,4 +32,5 @@ public class IssueRead {
 
     @Column
     private String createdBy;
+
 }

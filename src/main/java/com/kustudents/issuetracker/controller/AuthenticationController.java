@@ -1,14 +1,13 @@
 package com.kustudents.issuetracker.controller;
 
-import com.kustudents.issuetracker.service.AuthenticationService;
 import com.kustudents.issuetracker.model.AuthenticationResponse;
 import com.kustudents.issuetracker.model.AuthenticationRequest;
+import com.kustudents.issuetracker.service.AuthenticationService;
+import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.transaction.Transactional;
 
 @RestController
 @RequiredArgsConstructor

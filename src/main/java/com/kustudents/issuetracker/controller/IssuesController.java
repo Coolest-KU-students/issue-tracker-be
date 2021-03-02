@@ -1,14 +1,14 @@
 package com.kustudents.issuetracker.controller;
 
 import com.kustudents.issuetracker.model.entity.Issue;
-import com.kustudents.issuetracker.utility.DefaultPagination;
-import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.data.domain.Page;
 import com.kustudents.issuetracker.model.entity.IssueRead;
 import com.kustudents.issuetracker.service.IssuesService;
-import com.kustudents.issuetracker.service.factory.IssueFactory;
 import com.kustudents.issuetracker.service.IssuesReadService;
+import com.kustudents.issuetracker.service.factory.IssueFactory;
+import com.kustudents.issuetracker.utility.DefaultPagination;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -18,6 +18,13 @@ public class IssuesController {
     private final IssuesService issuesService;
     private final IssuesReadService issuesReadService;
     private final IssueFactory issueFactory;
+
+    private static class MandatoryFields {
+        public String name;
+        public String description;
+        public int importance;
+        //TODO: set who's responsible
+    }
 
     @GetMapping("/")
     public Iterable<IssueRead> getAllIssues() {
@@ -45,12 +52,6 @@ public class IssuesController {
     @GetMapping("/{id}")
     public IssueRead getIssueById(@PathVariable("id") Long id) {
         return issuesReadService.getIssueById(id);
-    }
-
-    private static class MandatoryFields {
-        public String name;
-        public String description;
-        public int importance;
     }
 
     @PostMapping("/")

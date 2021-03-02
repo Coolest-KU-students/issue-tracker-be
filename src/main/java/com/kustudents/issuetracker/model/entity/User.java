@@ -1,8 +1,7 @@
 package com.kustudents.issuetracker.model.entity;
 
-import lombok.Data;
-
 import javax.persistence.*;
+import lombok.Data;
 
 @Data
 @Entity(name = "viw_users")

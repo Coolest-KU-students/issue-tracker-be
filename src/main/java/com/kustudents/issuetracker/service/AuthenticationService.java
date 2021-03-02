@@ -12,19 +12,19 @@ import com.kustudents.issuetracker.model.entity.UserCredentials;
 import com.kustudents.issuetracker.repository.UsersCredentialsRepository;
 import com.kustudents.issuetracker.repository.UsersRepository;
 import com.kustudents.issuetracker.utility.TokenConstants;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
-import org.springframework.security.access.AuthorizationServiceException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
-
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.function.Supplier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.access.AuthorizationServiceException;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class AuthenticationService {
@@ -114,6 +114,10 @@ public class AuthenticationService {
                 .withIssuer("kustudents")
                 .withExpiresAt(getExpiration())
                 .sign(algorithm);
+    }
+
+    public String getLoggedInUserLogin() {
+        return ((UserCredentials) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getLogin();
     }
 
 }
