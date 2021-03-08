@@ -20,14 +20,11 @@ public class ImportanceController {
     }
 
     @GetMapping("/data")
-    public Page<Importance> getPaginatedIssues(
+    public Page<Importance> getPaginatedImportance(
         @RequestParam(defaultValue = DefaultPagination.DEFAULT_PAGE) Integer page,
         @RequestParam(defaultValue = DefaultPagination.DEFAULT_PAGE_SIZE) Integer size,
         @RequestParam(defaultValue = "id") String orderBy,
-        @RequestParam(defaultValue = "1") Boolean ascending,
-        @RequestParam(defaultValue = "1") Boolean hideClosed,
-        @RequestParam(defaultValue = "0") Boolean showCreatedByUser,
-        @RequestParam(defaultValue = "0") Boolean showIssuesWhereUserIsResponsible) {
+        @RequestParam(defaultValue = "1") Boolean ascending) {
         return importanceService.getAllImportancesPaginatedAndFiltered(page,
                                                                         size,
                                                                         orderBy,
@@ -35,7 +32,7 @@ public class ImportanceController {
     }
 
     @GetMapping("/{id}")
-    public Importance getIssueById(@PathVariable("id") Long id) {
+    public Importance getImportanceById(@PathVariable("id") Long id) {
         return importanceService.getImportanceByID(id);
     }
 
