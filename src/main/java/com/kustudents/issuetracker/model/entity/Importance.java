@@ -6,16 +6,15 @@ import javax.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
-@Entity(name = "viw_Importance")
+@Entity(name = "viw_Importances")
 public class Importance {
  
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "importance_Sort_ID")
     private Long id;
 
     @NotBlank(message = "All Importances need to be named")
     @Column(name = "name")
-    private LocalDateTime name;
+    private String name;
 
 }

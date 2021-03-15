@@ -1,5 +1,7 @@
 package com.kustudents.issuetracker.controller;
 
+import java.util.List;
+
 import com.kustudents.issuetracker.model.entity.Importance;
 import com.kustudents.issuetracker.service.ImportanceService;
 import com.kustudents.issuetracker.utility.DefaultPagination;
@@ -36,5 +38,14 @@ public class ImportanceController {
         return importanceService.getImportanceByID(id);
     }
 
+    @PutMapping("/")
+    public void updateImportanceList(@RequestBody List<Importance> importances){
+        importanceService.rewriteImportances(importances);
+    }
+
+    @PostMapping("/")
+    public Importance createImportance(@RequestBody Importance importance){
+        return importanceService.createImportance(importance);
+    }
 
 }
