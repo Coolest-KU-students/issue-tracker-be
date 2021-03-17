@@ -12,11 +12,17 @@ import com.kustudents.issuetracker.model.entity.UserCredentials;
 import com.kustudents.issuetracker.repository.UsersCredentialsRepository;
 import com.kustudents.issuetracker.repository.UsersRepository;
 import com.kustudents.issuetracker.utility.TokenConstants;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.function.Supplier;
+
+import javax.transaction.Transactional;
+
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AuthorizationServiceException;
@@ -47,18 +53,37 @@ public class AuthenticationService {
         this.verifier = JWT.require(algorithm).withIssuer("kustudents").build();
     }
 
-    public String authenticate(AuthenticationRequest request) {
-        tryAuthenticate(request);
-        return createNewJWT(request.getLogin());
+    @Transactional
+    public String changePasswordAndAuthenticate(AuthenticationRequest request, String newPassword){
+        UserCredentials userCredentials = tryAuthenticate(request);
+        userCredentials.setPassword(passwordEncoder.encode(newPassword));
+        userCredentials.setLastActive(LocalDateTime.now());
+        usersCredentialsRepository.save(userCredentials);
+        AuthenticationRequest authenticationRequest = new AuthenticationRequest();
+        authenticationRequest.setUsername(userCredentials.getLogin());
+        authenticationRequest.setPassword(userCredentials.getPassword());
+        return authenticate(authenticationRequest);
     }
 
-    private void tryAuthenticate(AuthenticationRequest request) {
-        var userEntity = usersCredentialsRepository.findUserByLogin(request.getLogin())
-                .orElseThrow(supplyAuthorizationException());
+    public String authenticate(AuthenticationRequest request) {
+        UserCredentials userCredentials = tryAuthenticate(request);
+        if(userCredentials.getLastActive() == LocalDateTime.MIN){
+            throw new AuthorizationServiceException("Need to Change Password");
+        }
+        else{
+            userCredentials.setLastActive(LocalDateTime.now());
+            usersCredentialsRepository.save(userCredentials);
+            return createNewJWT(userCredentials.getLogin());
+        }
+    }
 
+    private UserCredentials tryAuthenticate(AuthenticationRequest request) {
+        UserCredentials userEntity = usersCredentialsRepository.findUserByLogin(request.getLogin())
+                .orElseThrow(supplyAuthorizationException());
         if (!passwordEncoder.matches(request.getPassword(), userEntity.getPassword())) {
             throw supplyAuthorizationException().get();
         }
+        return userEntity;
     }
 
     private Supplier<AuthorizationServiceException> supplyAuthorizationException() {
@@ -71,13 +96,14 @@ public class AuthenticationService {
         return java.util.Date.from(expirationDate.atZone(ZoneId.systemDefault()).toInstant());
     }
 
-    public void register(String login, String password, String firstName, String lastName) {
+    public void register(String login, String password, String firstName, String lastName, Boolean changePasswordOnLogin) {
         if(usersCredentialsRepository.findUserByLogin(login).isPresent()) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "User with this login already exist");
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "User with this login already exists");
         }
         UserCredentials userCredentials = new UserCredentials();
         userCredentials.setLogin(login);
         userCredentials.setPassword(passwordEncoder.encode(password));
+        if(changePasswordOnLogin) userCredentials.setLastActive(LocalDateTime.MIN);
         usersCredentialsRepository.save(userCredentials);
 
         UserCredentials newSessionUserCredentials = usersCredentialsRepository.findUserByLogin(userCredentials.getLogin()).orElseThrow(() ->
