@@ -8,7 +8,9 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 @RequiredArgsConstructor
@@ -33,7 +35,8 @@ public class ImportanceService {
     }
 
     public Importance getImportanceByID(Long ID){
-        return importanceRepo.findById(ID).orElseThrow();
+        return importanceRepo.findById(ID).orElseThrow(() -> 
+            new ResponseStatusException(HttpStatus.BAD_REQUEST, "This importance does not exist"));
     }
 
     public void rewriteImportances(List<Importance> importances){
@@ -47,7 +50,8 @@ public class ImportanceService {
             //TODO: Implement Exception
             return;
         }
-        Importance importanceToDelete = importanceRepo.findById(id).orElseThrow();
+        Importance importanceToDelete = importanceRepo.findById(id).orElseThrow(() -> 
+            new ResponseStatusException(HttpStatus.BAD_REQUEST, "This importance does not exist"));
         List<Importance> importances = importanceRepo.findAll();
         importances.removeIf(importance -> importance.getSortOrder().compareTo(importanceToDelete.getSortOrder())<=0);//Removes all Importances that have a lower Importance order
         importances.forEach(importance -> {importance.setSortOrder(importance.getSortOrder()-1);});//decreases the leftover sort orders by 1
@@ -56,7 +60,8 @@ public class ImportanceService {
     }
 
     private void updateImportance(Importance importance){
-        Importance importanceToUpdate = importanceRepo.findById(importance.getId()).orElseThrow();
+        Importance importanceToUpdate = importanceRepo.findById(importance.getId()).orElseThrow(() -> 
+            new ResponseStatusException(HttpStatus.BAD_REQUEST, "This importance does not exist")); 
         importanceToUpdate.setName(importance.getName());
         importanceToUpdate.setSortOrder(importance.getSortOrder());
         importanceRepo.save(importanceToUpdate);
