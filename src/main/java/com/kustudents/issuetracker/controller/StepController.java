@@ -27,7 +27,7 @@ public class StepController {
         return stepService.getStepById(id);
     }
 
-    @PostMapping("/")
+    @PostMapping("/new")
     public void createNewStep(@RequestBody String stepName){
         stepService.createStep(stepName);
     }

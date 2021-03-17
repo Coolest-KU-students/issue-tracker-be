@@ -1,6 +1,5 @@
 package com.kustudents.issuetracker.model.entity;
 
-import java.time.LocalDateTime;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import lombok.Data;
@@ -10,8 +9,12 @@ import lombok.Data;
 public class Importance {
  
     @Id
-    @Column(name = "importance_Sort_ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
+
+    @Column(name = "sort_order")
+    private Long sortOrder;
 
     @NotBlank(message = "All Importances need to be named")
     @Column(name = "name")

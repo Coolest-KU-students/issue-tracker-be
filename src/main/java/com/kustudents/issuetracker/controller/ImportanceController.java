@@ -43,9 +43,13 @@ public class ImportanceController {
         importanceService.rewriteImportances(importances);
     }
 
-    @PostMapping("/")
-    public Importance createImportance(@RequestBody Importance importance){
-        return importanceService.createImportance(importance);
+    @PostMapping("/new")
+    public Importance createImportance(@RequestBody String importanceName){
+        return importanceService.createImportance(importanceName);
     }
 
+    @DeleteMapping("/{id}")
+    public void deleteById(@PathVariable("id") Long id) {
+        importanceService.deleteImportanceById(id);
+    }
 }
