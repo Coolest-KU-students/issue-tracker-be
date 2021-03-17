@@ -47,8 +47,7 @@ public class ImportanceService {
 
     public void deleteImportanceById(Long id){
         if(importanceRepo.count() == 1){
-            //TODO: Implement Exception
-            return;
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "At least 1 importance must remain");
         }
         Importance importanceToDelete = importanceRepo.findById(id).orElseThrow(() -> 
             new ResponseStatusException(HttpStatus.BAD_REQUEST, "This importance does not exist"));
