@@ -1,3 +1,3 @@
 
 ALTER TABLE tbl_users_credentials
-ADD Last_Active TIMESTAMP;
+ADD Last_Active TIMESTAMP NULL;
