@@ -13,7 +13,6 @@ import com.kustudents.issuetracker.repository.UsersCredentialsRepository;
 import com.kustudents.issuetracker.repository.UsersRepository;
 import com.kustudents.issuetracker.utility.TokenConstants;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
@@ -22,7 +21,6 @@ import java.util.function.Supplier;
 
 import javax.transaction.Transactional;
 
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AuthorizationServiceException;

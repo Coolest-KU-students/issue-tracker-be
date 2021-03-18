@@ -1,10 +1,7 @@
 package com.kustudents.issuetracker.model.entity;
 
-import java.time.LocalDateTime;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-
-import org.hibernate.validator.constraints.UniqueElements;
 
 import lombok.Data;
 
