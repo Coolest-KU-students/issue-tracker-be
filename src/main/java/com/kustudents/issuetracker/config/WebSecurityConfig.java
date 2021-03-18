@@ -32,6 +32,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .cors().and()
                 .authorizeRequests()
                 .antMatchers("/api/login").permitAll()
+                .antMatchers("/api/pwChange").permitAll()
                 //TODO: Remove once security is implemented
                 .antMatchers("/api/register").permitAll()
                 .anyRequest().authenticated()

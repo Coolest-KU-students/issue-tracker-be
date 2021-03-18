@@ -9,7 +9,6 @@ import com.kustudents.issuetracker.service.StepService;
 
 import org.springframework.web.bind.annotation.*;
 
-
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/steps")
@@ -41,4 +40,5 @@ public class StepController {
     public void deleteStep(@PathVariable("id") Long id) {
         stepService.deleteStepById(id);
     }
+
 }

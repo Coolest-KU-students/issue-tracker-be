@@ -2,6 +2,7 @@ package com.kustudents.issuetracker.model.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+
 import lombok.Data;
 
 @Data
