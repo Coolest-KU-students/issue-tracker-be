@@ -7,7 +7,9 @@ import com.kustudents.issuetracker.repository.StepRepository;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 @RequiredArgsConstructor
@@ -18,12 +20,12 @@ public class StepService {
        return stepRepository.save(step);
     }
 
-    public Step createStep(String stepName){
-        Long stepCount = stepRepository.count();
+    public void createStep(String stepName){
+        long stepCount = stepRepository.count();
         Step step = new Step();
         step.setName(stepName);
         step.setSortOrder(stepCount + 1);
-        return stepRepository.save(step);
+        stepRepository.save(step);
      }
 
     public List<Step> getStepsList(){
@@ -35,15 +37,12 @@ public class StepService {
     }
 
     public void rewriteSteps(List<Step> steps){
-        steps.forEach((step) ->{
-            updateStep(step);
-        });
+        steps.forEach(this::updateStep);
     }
 
     public void deleteStepById(Long id){
         if(stepRepository.count() == 1){
-            //TODO: Implement Exception
-            return;
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "At least 1 step must remain");
         }
         Step stepToDelete = stepRepository.findById(id).orElseThrow();
         List<Step> steps = stepRepository.findAll();
