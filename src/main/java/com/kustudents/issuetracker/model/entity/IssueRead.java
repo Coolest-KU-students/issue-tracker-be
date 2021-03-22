@@ -21,8 +21,9 @@ public class IssueRead {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "importance")
-    private int importance;
+    @ManyToOne
+    @JoinColumn(name = "importance")
+    private Importance importance;
 
     @Column(name = "current_step")
     private String currentStep;
