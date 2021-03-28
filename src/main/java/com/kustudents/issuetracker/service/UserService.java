@@ -1,5 +1,7 @@
 package com.kustudents.issuetracker.service;
 
+import java.util.Optional;
+
 import com.kustudents.issuetracker.exceptions.ResourceNotFoundException;
 import com.kustudents.issuetracker.model.entity.User;
 import com.kustudents.issuetracker.model.entity.UserCredentials;
@@ -9,6 +11,11 @@ import com.kustudents.issuetracker.repository.UsersCredentialsRepository;
 import com.kustudents.issuetracker.repository.UsersRepository;
 
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -46,5 +53,13 @@ public class UserService {
         userToUpdate.setFirstName(user.getFirstName());
         userToUpdate.setLastName(user.getLastName());
         usersRepository.save(userToUpdate);
+    }
+
+    public Page<UserRead> getUsersPaginatedAndFiltered(Boolean showExpired, Integer page, Integer size, String orderBy,
+            Boolean ascending) {
+        Pageable pageRequest = PageRequest.of(page, size,
+                ascending ? Sort.by(orderBy).ascending() : Sort.by(orderBy).descending());
+
+        return userReadRepository.getUsersPaginatedAndFiltered(showExpired, pageRequest);
     }
 }
