@@ -1,5 +1,7 @@
 package com.kustudents.issuetracker.model.entity;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.*;
 import lombok.Data;
 
@@ -16,6 +18,9 @@ public class UserRead {
 
     @Column(name = "last_name")
     private String lastName;
+
+    @Column(name = "last_active")
+    private LocalDateTime lastActive;
 
     @Column(name = "is_expired")
     private Boolean isExpired;
