@@ -41,9 +41,8 @@ public class AuthenticationService {
     private final Algorithm algorithm;
 
     public AuthenticationService(@Value("${auth.secret}") String secret,
-                                 @Value("${auth.expirationInMinutes}") int expirationInMinutes,
-                                 UsersRepository usersRepository,
-                                 UsersCredentialsRepository usersCredentialsRepository) {
+            @Value("${auth.expirationInMinutes}") int expirationInMinutes, UsersRepository usersRepository,
+            UsersCredentialsRepository usersCredentialsRepository) {
         this.usersCredentialsRepository = usersCredentialsRepository;
         this.usersRepository = usersRepository;
         this.expirationInMinutes = expirationInMinutes;
@@ -52,7 +51,7 @@ public class AuthenticationService {
     }
 
     @Transactional
-    public String changePasswordAndAuthenticate(AuthenticationRequest request, String newPassword){
+    public String changePasswordAndAuthenticate(AuthenticationRequest request, String newPassword) {
         UserCredentials userCredentials = tryAuthenticate(request);
         userCredentials.setPassword(passwordEncoder.encode(newPassword));
         userCredentials.setLastActive(LocalDateTime.now());
@@ -67,8 +66,7 @@ public class AuthenticationService {
         UserCredentials userCredentials = tryAuthenticate(request);
         if (userCredentials.getLastActive() == LocalDateTime.MIN) {
             throw new AuthorizationServiceException("Need to Change Password");
-        }
-        else {
+        } else {
             userCredentials.setLastActive(LocalDateTime.now());
             usersCredentialsRepository.save(userCredentials);
             return createNewJWT(userCredentials.getLogin());
@@ -94,24 +92,23 @@ public class AuthenticationService {
         return java.util.Date.from(expirationDate.atZone(ZoneId.systemDefault()).toInstant());
     }
 
-    public void register(String login, String password, String firstName, String lastName, Boolean changePasswordOnLogin) {
-        if(usersCredentialsRepository.findUserByLogin(login).isPresent()) {
+    public void register(String login, String password, String firstName, String lastName,
+            Boolean changePasswordOnLogin) {
+        if (usersCredentialsRepository.findUserByLogin(login).isPresent()) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "User with this login already exists");
         }
         UserCredentials userCredentials = new UserCredentials();
         userCredentials.setLogin(login);
         userCredentials.setPassword(passwordEncoder.encode(password));
-        if(changePasswordOnLogin) userCredentials.setLastActive(LocalDateTime.MIN);
+        if (changePasswordOnLogin)
+            userCredentials.setLastActive(LocalDateTime.MIN);
         usersCredentialsRepository.save(userCredentials);
-
-        UserCredentials newSessionUserCredentials = usersCredentialsRepository.findUserByLogin(userCredentials.getLogin()).orElseThrow(() ->
-                new ResponseStatusException(HttpStatus.BAD_REQUEST, "User credentials creation failed"));
 
         User user = new User();
 
         user.setFirstName(firstName);
         user.setLastName(lastName);
-        user.setUserCredentials(newSessionUserCredentials);
+        user.setLogin(login);
 
         usersRepository.save(user);
     }
@@ -138,12 +135,9 @@ public class AuthenticationService {
     }
 
     private String createNewJWT(String login) {
-        return JWT.create()
-                .withClaim("login", login)
-                //.withClaim("importantInfo", "Example")
-                .withIssuer("kustudents")
-                .withExpiresAt(getExpiration())
-                .sign(algorithm);
+        return JWT.create().withClaim("login", login)
+                // .withClaim("importantInfo", "Example")
+                .withIssuer("kustudents").withExpiresAt(getExpiration()).sign(algorithm);
     }
 
     public String getLoggedInUserLogin() {
