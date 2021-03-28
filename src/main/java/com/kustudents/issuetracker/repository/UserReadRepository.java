@@ -2,11 +2,12 @@ package com.kustudents.issuetracker.repository;
 
 import java.util.Optional;
 
-import com.kustudents.issuetracker.model.entity.User;
+import com.kustudents.issuetracker.model.entity.UserRead;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UsersRepository extends JpaRepository<User, String> {
-    Optional<User> findByLogin(String login);
+public interface UserReadRepository extends JpaRepository<UserRead, Long> {
+
+    Optional<UserRead> findByLogin(String login);
 }
