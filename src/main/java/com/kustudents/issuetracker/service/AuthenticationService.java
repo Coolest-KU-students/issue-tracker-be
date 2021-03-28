@@ -104,15 +104,11 @@ public class AuthenticationService {
             userCredentials.setLastActive(LocalDateTime.MIN);
         usersCredentialsRepository.save(userCredentials);
 
-        UserCredentials newSessionUserCredentials = usersCredentialsRepository
-                .findUserByLogin(userCredentials.getLogin()).orElseThrow(
-                        () -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "User credentials creation failed"));
-
         User user = new User();
 
         user.setFirstName(firstName);
         user.setLastName(lastName);
-        user.setLogin(newSessionUserCredentials.getLogin());
+        user.setLogin(login);
 
         usersRepository.save(user);
     }
