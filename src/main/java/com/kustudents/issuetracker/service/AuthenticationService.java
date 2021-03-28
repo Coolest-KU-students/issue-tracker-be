@@ -56,19 +56,19 @@ public class AuthenticationService {
         UserCredentials userCredentials = tryAuthenticate(request);
         userCredentials.setPassword(passwordEncoder.encode(newPassword));
         userCredentials.setLastActive(LocalDateTime.now());
-        usersCredentialsRepository.save(userCredentials);
+        usersCredentialsRepository.saveAndFlush(userCredentials);
         AuthenticationRequest authenticationRequest = new AuthenticationRequest();
         authenticationRequest.setUsername(userCredentials.getLogin());
-        authenticationRequest.setPassword(userCredentials.getPassword());
+        authenticationRequest.setPassword(newPassword);
         return authenticate(authenticationRequest);
     }
 
     public String authenticate(AuthenticationRequest request) {
         UserCredentials userCredentials = tryAuthenticate(request);
-        if(userCredentials.getLastActive() == LocalDateTime.MIN){
+        if (userCredentials.getLastActive() == LocalDateTime.MIN) {
             throw new AuthorizationServiceException("Need to Change Password");
         }
-        else{
+        else {
             userCredentials.setLastActive(LocalDateTime.now());
             usersCredentialsRepository.save(userCredentials);
             return createNewJWT(userCredentials.getLogin());
@@ -89,7 +89,7 @@ public class AuthenticationService {
     }
 
     private Date getExpiration() {
-        var expirationDate = LocalDateTime.now().plus(expirationInMinutes, ChronoUnit.MINUTES);
+        LocalDateTime expirationDate = LocalDateTime.now().plus(expirationInMinutes, ChronoUnit.MINUTES);
 
         return java.util.Date.from(expirationDate.atZone(ZoneId.systemDefault()).toInstant());
     }
@@ -126,9 +126,15 @@ public class AuthenticationService {
     }
 
     public String overwriteExistingToken(String token) {
-        var decodedJWT = decodeToken(token.substring(TokenConstants.TOKEN_PREFIX.length()));
+        DecodedJWT decodedJWT = decodeToken(token.substring(TokenConstants.TOKEN_PREFIX.length()));
         Claim login = decodedJWT.getClaim("login");
         return createNewJWT(login.asString());
+    }
+
+    public String getLoginFromToken(String bearerlessToken) {
+        DecodedJWT decodedJWT = decodeToken(bearerlessToken);
+        Claim login = decodedJWT.getClaim("login");
+        return login.asString();
     }
 
     private String createNewJWT(String login) {
