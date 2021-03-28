@@ -4,8 +4,8 @@ import javax.persistence.*;
 import lombok.Data;
 
 @Data
-@Entity(name = "viw_users")
-public class User {
+@Entity(name = "ciw_users")
+public class UserRead {
 
     @Id
     @Column(name = "login")
@@ -17,4 +17,6 @@ public class User {
     @Column(name = "last_name")
     private String lastName;
 
+    @Column(name = "is_expired")
+    private Boolean isExpired;
 }

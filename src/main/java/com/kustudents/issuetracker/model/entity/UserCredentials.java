@@ -17,7 +17,7 @@ public class UserCredentials {
     private String password;
 
     @Column(name = "is_expired")
-    private Boolean isExpired;
+    private Boolean isExpired = false;
 
     @Column(name = "Last_Active")
     private LocalDateTime lastActive;
