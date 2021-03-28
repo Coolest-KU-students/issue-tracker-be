@@ -58,5 +58,5 @@ public class StepService {
         stepToUpdate.setSortOrder(step.getSortOrder());
         stepRepository.save(stepToUpdate);
     }
-}
 
+}

@@ -19,4 +19,5 @@ public class Step {
     @NotBlank(message = "All Steps need to be named")
     @Column(name = "name")
     private String name;
+
 }

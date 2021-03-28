@@ -32,18 +32,20 @@ public class AuthenticationController {
 
     @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request) {
-        return ResponseEntity.ok(new AuthenticationResponse(authenticationService.authenticate(request)));
+        String token = authenticationService.authenticate(request);
+        return ResponseEntity.ok(new AuthenticationResponse(token, authenticationService.getLoginFromToken(token)));
     }
 
     @PostMapping("/pwChange")
     public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody UserPasswordChange request) {
-        return ResponseEntity.ok(new AuthenticationResponse(authenticationService.changePasswordAndAuthenticate(request.authRequest, request.newPassword)));
+        String token = authenticationService.changePasswordAndAuthenticate(request.authRequest, request.newPassword);
+        return ResponseEntity.ok(new AuthenticationResponse(token, authenticationService.getLoginFromToken(token)));
     }
 
-
     @GetMapping("/auth")
-    public ResponseEntity<AuthenticationResponse> authenticate(@RequestHeader("Authorization") String token) {
-        return ResponseEntity.ok(new AuthenticationResponse(authenticationService.overwriteExistingToken(token)));
+    public ResponseEntity<AuthenticationResponse> authenticate(@RequestHeader("Authorization") String oldToken) {
+        String token = authenticationService.overwriteExistingToken(oldToken);
+        return ResponseEntity.ok(new AuthenticationResponse(token, authenticationService.getLoginFromToken(token)));
     }
 
     @Transactional
