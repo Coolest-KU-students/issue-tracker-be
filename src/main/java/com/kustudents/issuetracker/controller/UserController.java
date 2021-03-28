@@ -2,12 +2,8 @@ package com.kustudents.issuetracker.controller;
 
 import lombok.RequiredArgsConstructor;
 
-import java.util.List;
-
-import com.kustudents.issuetracker.model.entity.Step;
 import com.kustudents.issuetracker.model.entity.User;
-import com.kustudents.issuetracker.model.entity.UserRead;
-import com.kustudents.issuetracker.service.StepService;
+import com.kustudents.issuetracker.model.UserRead;
 import com.kustudents.issuetracker.service.UserService;
 
 import org.springframework.web.bind.annotation.*;

@@ -1,7 +1,7 @@
 package com.kustudents.issuetracker.controller;
 
 import com.kustudents.issuetracker.model.entity.Issue;
-import com.kustudents.issuetracker.model.entity.IssueRead;
+import com.kustudents.issuetracker.model.IssueRead;
 import com.kustudents.issuetracker.service.IssuesService;
 import com.kustudents.issuetracker.service.IssuesReadService;
 import com.kustudents.issuetracker.service.factory.IssueFactory;

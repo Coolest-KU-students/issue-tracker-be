@@ -1,6 +1,6 @@
 package com.kustudents.issuetracker.repository;
 
-import com.kustudents.issuetracker.model.entity.IssueRead;
+import com.kustudents.issuetracker.model.IssueRead;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
