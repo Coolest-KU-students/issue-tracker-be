@@ -27,20 +27,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
 
-        http
-                .csrf().disable()
-                .cors().and()
-                .authorizeRequests()
-                .antMatchers("/api/login").permitAll()
+        http.csrf().disable().cors().and().authorizeRequests().antMatchers("/api/login").permitAll()
                 .antMatchers("/api/pwChange").permitAll()
-                //TODO: Remove once security is implemented
-                .antMatchers("/api/register").permitAll()
-                .anyRequest().authenticated()
-                .and()
+                // TODO: Remove once security is implemented
+                .antMatchers("/api/register").permitAll().anyRequest().authenticated().and()
                 .addFilter(new JwtAuthorizationFilter(authenticationManagerBean(), authenticationService))
-                .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
-                .and()
-                .sessionManagement()
+                .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 

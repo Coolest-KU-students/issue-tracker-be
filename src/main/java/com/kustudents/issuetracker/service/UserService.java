@@ -1,7 +1,5 @@
 package com.kustudents.issuetracker.service;
 
-import java.util.Optional;
-
 import com.kustudents.issuetracker.exceptions.ResourceNotFoundException;
 import com.kustudents.issuetracker.model.entity.User;
 import com.kustudents.issuetracker.model.entity.UserCredentials;
@@ -38,6 +36,7 @@ public class UserService {
     public void changeUserExpiration(String login) {
         UserCredentials userCredentials = getUserCredentials(login);
         userCredentials.setIsExpired(!userCredentials.getIsExpired());
+        // userCredentials.UpdateAudit();
         usersCredentialsRepository.save(userCredentials);
     }
 

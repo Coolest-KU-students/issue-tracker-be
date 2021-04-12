@@ -1,8 +1,6 @@
 package com.kustudents.issuetracker.config;
 
 import com.auth0.jwt.interfaces.Claim;
-import com.auth0.jwt.interfaces.DecodedJWT;
-import com.kustudents.issuetracker.model.entity.UserCredentials;
 import com.kustudents.issuetracker.service.AuthenticationService;
 import com.kustudents.issuetracker.utility.TokenConstants;
 import java.io.IOException;
