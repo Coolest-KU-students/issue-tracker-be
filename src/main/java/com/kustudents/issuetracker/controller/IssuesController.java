@@ -23,7 +23,6 @@ public class IssuesController {
         public String name;
         public String description;
         public int importance;
-        //TODO: set who's responsible
     }
 
     @GetMapping("/")
@@ -32,21 +31,14 @@ public class IssuesController {
     }
 
     @GetMapping("/data")
-    public Page<IssueRead> getPaginatedIssues(
-        @RequestParam(defaultValue = DefaultPagination.DEFAULT_PAGE) Integer page,
-        @RequestParam(defaultValue = DefaultPagination.DEFAULT_PAGE_SIZE) Integer size,
-        @RequestParam(defaultValue = "id") String orderBy,
-        @RequestParam(defaultValue = "1") Boolean ascending,
-        @RequestParam(defaultValue = "1") Boolean hideClosed,
-        @RequestParam(defaultValue = "0") Boolean showCreatedByUser,
-        @RequestParam(defaultValue = "0") Boolean showIssuesWhereUserIsResponsible) {
-        return issuesReadService.getAllIssuesPaginatedAndFiltered(hideClosed,
-                                                                  showCreatedByUser,
-                                                                  showIssuesWhereUserIsResponsible,
-                                                                  page,
-                                                                  size,
-                                                                  orderBy,
-                                                                  ascending);
+    public Page<IssueRead> getPaginatedIssues(@RequestParam(defaultValue = DefaultPagination.DEFAULT_PAGE) Integer page,
+            @RequestParam(defaultValue = DefaultPagination.DEFAULT_PAGE_SIZE) Integer size,
+            @RequestParam(defaultValue = "id") String orderBy, @RequestParam(defaultValue = "1") Boolean ascending,
+            @RequestParam(defaultValue = "1") Boolean hideClosed,
+            @RequestParam(defaultValue = "0") Boolean showCreatedByUser,
+            @RequestParam(defaultValue = "0") Boolean showIssuesWhereUserIsResponsible) {
+        return issuesReadService.getAllIssuesPaginatedAndFiltered(hideClosed, showCreatedByUser,
+                showIssuesWhereUserIsResponsible, page, size, orderBy, ascending);
     }
 
     @GetMapping("/{id}")
@@ -55,8 +47,9 @@ public class IssuesController {
     }
 
     @PostMapping("/")
-    public Long createIssue(@RequestBody MandatoryFields fields){
-        Issue issue = issuesService.createIssue(issueFactory.createIssue(fields.name, fields.description, fields.importance));
+    public Long createIssue(@RequestBody MandatoryFields fields) {
+        Issue issue = issuesService
+                .createIssue(issueFactory.createIssue(fields.name, fields.description, fields.importance));
         return issue.getId();
     }
 

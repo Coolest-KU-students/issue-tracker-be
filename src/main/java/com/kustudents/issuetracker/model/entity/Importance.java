@@ -22,4 +22,13 @@ public class Importance {
     @Column(name = "name")
     private String name;
 
+    @Embedded
+    private GlobalEntity GE = new GlobalEntity();
+
+    @PrePersist
+    @PreUpdate
+    public void UpdateAudit() {
+        GE.OnUpdateAudit();
+    }
+
 }

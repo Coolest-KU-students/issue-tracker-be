@@ -1,7 +1,5 @@
 package com.kustudents.issuetracker.service;
 
-import java.util.Optional;
-
 import com.kustudents.issuetracker.exceptions.ResourceNotFoundException;
 import com.kustudents.issuetracker.model.entity.User;
 import com.kustudents.issuetracker.model.entity.UserCredentials;

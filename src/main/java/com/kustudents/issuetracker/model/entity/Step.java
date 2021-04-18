@@ -12,7 +12,7 @@ public class Step {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    
+
     @Column(name = "sort_order")
     private Long sortOrder;
 
@@ -20,4 +20,12 @@ public class Step {
     @Column(name = "name")
     private String name;
 
+    @Embedded
+    private GlobalEntity GE = new GlobalEntity();
+
+    @PrePersist
+    @PreUpdate
+    public void UpdateAudit() {
+        GE.OnUpdateAudit();
+    }
 }
