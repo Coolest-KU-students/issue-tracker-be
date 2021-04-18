@@ -36,7 +36,6 @@ public class UserService {
     public void changeUserExpiration(String login) {
         UserCredentials userCredentials = getUserCredentials(login);
         userCredentials.setIsExpired(!userCredentials.getIsExpired());
-        // userCredentials.UpdateAudit();
         usersCredentialsRepository.save(userCredentials);
     }
 
