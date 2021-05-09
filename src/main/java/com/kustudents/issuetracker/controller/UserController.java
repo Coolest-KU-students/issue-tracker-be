@@ -31,7 +31,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{login}")
-    public void deleteStep(@PathVariable("login") String login) {
+    public void deleteUser(@PathVariable("login") String login) {
         userService.changeUserExpiration(login);
     }
 

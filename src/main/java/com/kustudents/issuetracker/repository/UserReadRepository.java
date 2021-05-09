@@ -10,4 +10,5 @@ import org.springframework.stereotype.Repository;
 public interface UserReadRepository extends JpaRepository<UserRead, Long> {
 
     Optional<UserRead> findByLogin(String login);
+
 }
