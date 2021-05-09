@@ -29,4 +29,12 @@ public class Issue {
     @Column(name = "importance")
     private int importance;
 
+    @Embedded
+    private GlobalEntity GE = new GlobalEntity();
+
+    @PrePersist
+    @PreUpdate
+    public void UpdateAudit() {
+        GE.OnUpdateAudit();
+    }
 }

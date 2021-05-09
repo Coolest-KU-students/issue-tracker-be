@@ -140,7 +140,7 @@ public class AuthenticationService {
                 .withIssuer("kustudents").withExpiresAt(getExpiration()).sign(algorithm);
     }
 
-    public String getLoggedInUserLogin() {
+    public static String getLoggedInUserLogin() {
         return ((UserCredentials) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getLogin();
     }
 
