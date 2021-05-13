@@ -20,12 +20,15 @@ public class IssueStepRead {
     private String responsible;
 
     @Column(name = "name")
-    private String stepName;
+    private String name;
 
     @Column(name = "comment")
     private String comment;
 
     @Column(name = "completed")
     private LocalDateTime completed;
+
+    @Column(name = "updated_by")
+    protected String updatedBy;
 
 }

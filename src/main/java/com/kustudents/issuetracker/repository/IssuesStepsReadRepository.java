@@ -12,7 +12,7 @@ import java.util.List;
 public interface IssuesStepsReadRepository extends JpaRepository<IssueStepRead, Long> {
 
     @Query("SELECT IssueSteps FROM ciw_issues_steps IssueSteps where " +
-            "(IssueSteps.id = :id)")
+            "(IssueSteps.issue_id = :id) ORDER BY IssueSteps.completed desc nulls first")
     List<IssueStepRead> findAllByIssueId(Long id);
 
 }

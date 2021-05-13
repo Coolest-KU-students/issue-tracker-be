@@ -13,14 +13,19 @@ import com.kustudents.issuetracker.repository.UsersCredentialsRepository;
 import com.kustudents.issuetracker.repository.UsersRepository;
 import com.kustudents.issuetracker.utility.TokenConstants;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.function.Supplier;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.transaction.Transactional;
 
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AuthorizationServiceException;
@@ -64,11 +69,14 @@ public class AuthenticationService {
 
     public String authenticate(AuthenticationRequest request) {
         UserCredentials userCredentials = tryAuthenticate(request);
+        if(userCredentials.getIsExpired()) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User has been expired. Please contact system administrator");
+        }
         if (userCredentials.getLastActive() == LocalDateTime.MIN) {
             throw new AuthorizationServiceException("Need to Change Password");
         } else {
-            userCredentials.setLastActive(LocalDateTime.now());
-            usersCredentialsRepository.save(userCredentials);
+//            userCredentials.`setLastActive`(LocalDateTime.now());
+//            usersCredentialsRepository.save(userCredentials);
             return createNewJWT(userCredentials.getLogin());
         }
     }

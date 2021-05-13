@@ -16,4 +16,12 @@ public class IssueStepFactory {
         return issueStep;
     }
 
+    public IssueStep createIssueStep(String responsible, Issue issue, Long id) {
+        IssueStep issueStep = new IssueStep();
+        issueStep.setResponsible(responsible);
+        issueStep.setIssue(issue);
+        issueStep.setStepId(id);
+        return issueStep;
+    }
+
 }

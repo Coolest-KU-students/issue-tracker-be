@@ -2,12 +2,15 @@ package com.kustudents.issuetracker.controller;
 
 import com.kustudents.issuetracker.model.entity.Issue;
 import com.kustudents.issuetracker.model.IssueRead;
+import com.kustudents.issuetracker.model.entity.User;
 import com.kustudents.issuetracker.service.IssuesService;
 import com.kustudents.issuetracker.service.IssuesReadService;
 import com.kustudents.issuetracker.service.factory.IssueFactory;
 import com.kustudents.issuetracker.utility.DefaultPagination;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -51,6 +54,12 @@ public class IssuesController {
         Issue issue = issuesService
                 .createIssue(issueFactory.createIssue(fields.name, fields.description, fields.importance));
         return issue.getId();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<String> updateIssue(@PathVariable("id") Long id, @RequestBody MandatoryFields updatedData) {
+        issuesService.updateIssue(id, updatedData.name, updatedData.description, updatedData.importance);
+        return new ResponseEntity<>("Issue successfully updated", HttpStatus.CREATED);
     }
 
 }
