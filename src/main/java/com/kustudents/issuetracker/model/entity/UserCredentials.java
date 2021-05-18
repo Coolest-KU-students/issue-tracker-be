@@ -22,12 +22,11 @@ public class UserCredentials {
     @Column(name = "Last_Active")
     private LocalDateTime lastActive;
 
-    @Embedded
-    private GlobalEntity GE = new GlobalEntity();
-
-    @PrePersist
-    @PreUpdate
-    public void UpdateAudit() {
-        GE.OnUpdateAudit();
-    }
+    /*
+     * @Embedded private GlobalEntity GE = new GlobalEntity();
+     * 
+     * @PrePersist
+     * 
+     * @PreUpdate public void UpdateAudit() { // GE.OnUpdateAudit(); }
+     */
 }
