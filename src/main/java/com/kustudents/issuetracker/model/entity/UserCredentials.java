@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 
 import javax.persistence.*;
 import lombok.Data;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 @Data
 @Entity(name = "viw_users_credentials")
@@ -22,11 +24,13 @@ public class UserCredentials {
     @Column(name = "Last_Active")
     private LocalDateTime lastActive;
 
-    /*
-     * @Embedded private GlobalEntity GE = new GlobalEntity();
-     * 
-     * @PrePersist
-     * 
-     * @PreUpdate public void UpdateAudit() { // GE.OnUpdateAudit(); }
-     */
+    @Embedded
+    private GlobalEntity GE = new GlobalEntity();
+
+    @PrePersist
+    @PreUpdate
+    public void UpdateAudit() {
+        GE.OnUpdateAudit();
+    }
+
 }

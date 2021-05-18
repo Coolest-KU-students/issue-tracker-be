@@ -17,11 +17,13 @@ public class User {
     @Column(name = "last_name")
     private String lastName;
 
-    /*
-     * @Embedded private GlobalEntity GE = new GlobalEntity();
-     * 
-     * @PrePersist
-     * 
-     * @PreUpdate public void UpdateAudit() { // GE.OnUpdateAudit(); }
-     */
+    @Embedded
+    private GlobalEntity GE = new GlobalEntity();
+
+    @PrePersist
+    @PreUpdate
+    public void UpdateAudit() {
+        GE.OnUpdateAudit();
+    }
+
 }

@@ -22,7 +22,7 @@ public class StepController {
     } 
 
     @GetMapping("/{id}")
-    public Step getIssueById(@PathVariable("id") Long id) {
+    public Step getStepById(@PathVariable("id") Long id) {
         return stepService.getStepById(id);
     }
 

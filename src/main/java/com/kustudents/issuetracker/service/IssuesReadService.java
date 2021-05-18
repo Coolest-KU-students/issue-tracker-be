@@ -1,6 +1,6 @@
 package com.kustudents.issuetracker.service;
 
-import com.kustudents.issuetracker.model.entity.IssueRead;
+import com.kustudents.issuetracker.model.IssueRead;
 import com.kustudents.issuetracker.repository.IssueReadRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;

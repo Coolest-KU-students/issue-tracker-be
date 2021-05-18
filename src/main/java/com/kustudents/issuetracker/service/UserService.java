@@ -3,7 +3,7 @@ package com.kustudents.issuetracker.service;
 import com.kustudents.issuetracker.exceptions.ResourceNotFoundException;
 import com.kustudents.issuetracker.model.entity.User;
 import com.kustudents.issuetracker.model.entity.UserCredentials;
-import com.kustudents.issuetracker.model.entity.UserRead;
+import com.kustudents.issuetracker.model.UserRead;
 import com.kustudents.issuetracker.repository.UserReadRepository;
 import com.kustudents.issuetracker.repository.UsersCredentialsRepository;
 import com.kustudents.issuetracker.repository.UsersRepository;
