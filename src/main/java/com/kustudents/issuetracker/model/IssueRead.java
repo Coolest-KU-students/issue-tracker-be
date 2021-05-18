@@ -1,7 +1,9 @@
-package com.kustudents.issuetracker.model.entity;
+package com.kustudents.issuetracker.model;
 
 import java.time.LocalDateTime;
 import javax.persistence.*;
+
+import com.kustudents.issuetracker.model.entity.Importance;
 import lombok.Data;
 
 @Data

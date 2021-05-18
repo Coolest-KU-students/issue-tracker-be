@@ -1,4 +1,4 @@
-package com.kustudents.issuetracker.model.entity;
+package com.kustudents.issuetracker.model;
 
 import java.time.LocalDateTime;
 

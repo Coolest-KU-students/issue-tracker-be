@@ -3,7 +3,7 @@ package com.kustudents.issuetracker.controller;
 import lombok.RequiredArgsConstructor;
 
 import com.kustudents.issuetracker.model.entity.User;
-import com.kustudents.issuetracker.model.entity.UserRead;
+import com.kustudents.issuetracker.model.UserRead;
 import com.kustudents.issuetracker.service.UserService;
 
 import org.springframework.data.domain.Page;
@@ -46,7 +46,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{login}")
-    public void deleteStep(@PathVariable("login") String login) {
+    public void deleteUser(@PathVariable("login") String login) {
         userService.changeUserExpiration(login);
     }
 
