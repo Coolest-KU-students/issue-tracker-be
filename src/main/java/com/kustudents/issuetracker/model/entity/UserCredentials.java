@@ -4,8 +4,6 @@ import java.time.LocalDateTime;
 
 import javax.persistence.*;
 import lombok.Data;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.server.ResponseStatusException;
 
 @Data
 @Entity(name = "viw_users_credentials")

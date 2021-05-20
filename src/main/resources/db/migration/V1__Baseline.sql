@@ -39,7 +39,7 @@ created_by VARCHAR(30) NULL,
 updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 updated_by VARCHAR(30) NULL,
 PRIMARY KEY (login),
-FOREIGN KEY (login) REFERENCES tbl_Users_Credentials(login)
+FOREIGN KEY (login) REFERENCES tbl_users_credentials(login)
 );
 
 CREATE TRIGGER itr_users
@@ -112,7 +112,7 @@ AS
     SELECT id, closed, name, description, importance
     FROM tbl_issues;
 
-INSERT INTO tbl_Issues(name, description, importance)
+INSERT INTO tbl_issues(name, description, importance)
 SELECT 'Issue Tacker is not working', 'The issue tracker is not working since it has not been built yet', 1;
 
 CREATE TABLE tbl_issues_steps (
@@ -126,9 +126,9 @@ created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 created_by VARCHAR(30) NULL,
 updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 updated_by VARCHAR(30) NULL,
-FOREIGN KEY (issue_id) REFERENCES tbl_Issues(id) ON DELETE CASCADE,
-FOREIGN KEY (responsible) REFERENCES tbl_Users_Credentials(login),
-FOREIGN KEY (step_id) REFERENCES tbl_Steps(id)
+FOREIGN KEY (issue_id) REFERENCES tbl_issues(id) ON DELETE CASCADE,
+FOREIGN KEY (responsible) REFERENCES tbl_users_credentials(login),
+FOREIGN KEY (step_id) REFERENCES tbl_steps(id)
 );
 
 CREATE TRIGGER itr_issues_steps

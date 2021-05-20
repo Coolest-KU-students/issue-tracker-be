@@ -29,4 +29,12 @@ public class IssueStep {
     @Column(name = "completed")
     private LocalDateTime completed;
 
+    @Embedded
+    private GlobalEntity GE = new GlobalEntity();
+
+    @PrePersist
+    @PreUpdate
+    public void UpdateAudit() {
+        GE.OnUpdateAudit();
+    }
 }

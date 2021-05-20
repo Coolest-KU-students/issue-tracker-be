@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 @RequestMapping("/api")
 public class AuthenticationController {
 
@@ -51,7 +52,8 @@ public class AuthenticationController {
     @Transactional
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody UserInformation userInformation) {
-        authenticationService.register(userInformation.login, userInformation.password, userInformation.firstName, userInformation.lastName, userInformation.changePasswordOnLogin);
+        authenticationService.register(userInformation.login, userInformation.password, userInformation.firstName,
+                userInformation.lastName, userInformation.changePasswordOnLogin);
         return new ResponseEntity<>("User successfully created", HttpStatus.CREATED);
     }
 

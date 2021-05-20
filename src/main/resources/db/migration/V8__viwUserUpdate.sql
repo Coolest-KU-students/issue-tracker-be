@@ -1,4 +1,4 @@
-ALTER VIEW ciw_Users
+ALTER VIEW ciw_users
 AS
 SELECT U.created
     , U.created_by

@@ -29,6 +29,7 @@ import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AuthorizationServiceException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -69,14 +70,19 @@ public class AuthenticationService {
 
     public String authenticate(AuthenticationRequest request) {
         UserCredentials userCredentials = tryAuthenticate(request);
-        if(userCredentials.getIsExpired()) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User has been expired. Please contact system administrator");
+        if (userCredentials.getIsExpired()) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,
+                    "User has been expired. Please contact system administrator");
         }
         if (userCredentials.getLastActive() == LocalDateTime.MIN) {
             throw new AuthorizationServiceException("Need to Change Password");
         } else {
-//            userCredentials.`setLastActive`(LocalDateTime.now());
-//            usersCredentialsRepository.save(userCredentials);
+            UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
+                    userCredentials, null, null);
+
+            SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+            userCredentials.setLastActive(LocalDateTime.now());
+            usersCredentialsRepository.save(userCredentials);
             return createNewJWT(userCredentials.getLogin());
         }
     }

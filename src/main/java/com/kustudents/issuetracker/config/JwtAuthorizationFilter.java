@@ -1,6 +1,8 @@
 package com.kustudents.issuetracker.config;
 
 import com.auth0.jwt.interfaces.Claim;
+import com.auth0.jwt.interfaces.DecodedJWT;
+import com.kustudents.issuetracker.model.entity.UserCredentials;
 import com.kustudents.issuetracker.service.AuthenticationService;
 import com.kustudents.issuetracker.utility.TokenConstants;
 import java.io.IOException;
@@ -30,16 +32,16 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws IOException, ServletException {
-        var authorizationHeader = request.getHeader("Authorization");
+        String authorizationHeader = request.getHeader("Authorization");
 
         if (authorizationHeader != null && authorizationHeader.startsWith(TokenConstants.TOKEN_PREFIX)) {
             try {
-                var decodedJWT = authenticationService
+                DecodedJWT decodedJWT = authenticationService
                         .decodeToken(authorizationHeader.substring(TokenConstants.TOKEN_PREFIX.length()));
                 Claim login = decodedJWT.getClaim("login");
-                var userDetails = authenticationService.loadUserDetails(login.asString());
-                var usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null,
-                        null);
+                UserCredentials userDetails = authenticationService.loadUserDetails(login.asString());
+                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
+                        userDetails, null, null);
 
                 usernamePasswordAuthenticationToken
                         .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

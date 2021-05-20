@@ -1,0 +1,9 @@
+runtime: java11
+env: standard
+
+instance_class: F4
+service: backend
+
+handlers:
+  - url: /.*
+    script: this field is required, but ignored

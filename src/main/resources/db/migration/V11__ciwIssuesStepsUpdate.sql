@@ -1,4 +1,4 @@
-ALTER VIEW ciw_Issues_Steps
+ALTER VIEW ciw_issues_steps
 AS
 SELECT I.id
     , I.issue_id

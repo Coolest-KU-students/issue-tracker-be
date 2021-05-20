@@ -1,4 +1,4 @@
-CREATE VIEW ciw_Users
+CREATE VIEW ciw_users
 AS
 SELECT U.created
     , U.created_by
