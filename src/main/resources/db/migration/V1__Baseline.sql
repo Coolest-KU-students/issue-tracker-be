@@ -1,6 +1,3 @@
-CREATE FUNCTION fnc_user_login ()
-RETURNS varchar(30)
-RETURN LEFT(SYSTEM_USER(), locate('@', SYSTEM_USER())-1);
 
 CREATE TABLE tbl_users_credentials (
 login VARCHAR(30) NOT NULL PRIMARY KEY,
@@ -12,15 +9,6 @@ updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 updated_by VARCHAR(30) NULL
 );
 
-CREATE TRIGGER itr_users_credentials
-  BEFORE INSERT ON tbl_users_credentials
-  FOR EACH ROW
-  SET new.created_by = fnc_user_login(), new.updated_by = fnc_user_login();
-
-CREATE TRIGGER utr_users_credentials
-  BEFORE UPDATE ON tbl_users_credentials
-  FOR EACH ROW
-  SET new.updated_by = fnc_user_login();
 
 CREATE VIEW viw_users_credentials
 AS
@@ -28,7 +16,7 @@ AS
     FROM tbl_users_credentials;
 
 INSERT INTO tbl_users_credentials(Login, password)
-VALUES(  fnc_user_login(), 'XXXXX');
+VALUES(  'verysecure_admin', 'XXXXX');
 
 CREATE TABLE tbl_users (
 login VARCHAR(30) NOT NULL,
@@ -41,16 +29,6 @@ updated_by VARCHAR(30) NULL,
 PRIMARY KEY (login),
 FOREIGN KEY (login) REFERENCES tbl_users_credentials(login)
 );
-
-CREATE TRIGGER itr_users
-  BEFORE INSERT ON tbl_users
-  FOR EACH ROW
-  SET new.created_by = fnc_user_login(), new.updated_by = fnc_user_login();
-
-CREATE TRIGGER utr_users
-  BEFORE UPDATE ON tbl_users
-  FOR EACH ROW
-  SET new.updated_by = fnc_user_login();
 
 CREATE VIEW viw_users
 AS
@@ -68,15 +46,6 @@ updated_by VARCHAR(30) NULL
 );
 
 
-CREATE TRIGGER itr_steps
-  BEFORE INSERT ON tbl_steps
-  FOR EACH ROW
-  SET new.created_by = fnc_user_login(), new.updated_by = fnc_user_login();
-
-CREATE TRIGGER utr_steps
-  BEFORE UPDATE ON tbl_steps
-  FOR EACH ROW
-  SET new.updated_by = fnc_user_login();
 
 CREATE VIEW viw_steps
 AS
@@ -97,15 +66,6 @@ created_by VARCHAR(30) NULL,
 updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 updated_by VARCHAR(30) NULL
 );
-CREATE TRIGGER itr_issues
-  BEFORE INSERT ON tbl_issues
-  FOR EACH ROW
-  SET new.created_by = fnc_user_login(), new.updated_by = fnc_user_login();
-
-CREATE TRIGGER utr_issues
-  BEFORE UPDATE ON tbl_issues
-  FOR EACH ROW
-  SET new.updated_by = fnc_user_login();
 
 CREATE VIEW viw_issues
 AS
@@ -131,15 +91,6 @@ FOREIGN KEY (responsible) REFERENCES tbl_users_credentials(login),
 FOREIGN KEY (step_id) REFERENCES tbl_steps(id)
 );
 
-CREATE TRIGGER itr_issues_steps
-  BEFORE INSERT ON tbl_issues_steps
-  FOR EACH ROW
-  SET new.created_by = fnc_user_login(), new.updated_by = fnc_user_login();
-
-CREATE TRIGGER utr_issues_steps
-  BEFORE UPDATE ON tbl_issues_steps
-  FOR EACH ROW
-  SET new.updated_by = fnc_user_login();
 
 CREATE VIEW viw_issues_steps
 AS
@@ -147,4 +98,4 @@ AS
     FROM tbl_issues_steps;
 
 INSERT INTO tbl_issues_steps (issue_id, responsible, step_id, comment)
-SELECT 1, fnc_user_login(), 1, 'Boop';
+SELECT 1, 'verysecure_admin', 1, 'Boop';

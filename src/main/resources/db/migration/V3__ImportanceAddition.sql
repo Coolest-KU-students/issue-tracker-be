@@ -8,16 +8,6 @@ updated_by VARCHAR(30) NULL,
 PRIMARY KEY (importance_Sort_ID)
 );
 
-CREATE TRIGGER itr_importances
-  BEFORE INSERT ON tbl_importances
-  FOR EACH ROW
-  SET new.created_by = fnc_user_login(), new.updated_by = fnc_user_login();
-
-CREATE TRIGGER utr_importances
-  BEFORE UPDATE ON tbl_importances
-  FOR EACH ROW
-  SET new.updated_by = fnc_user_login();
-
 CREATE VIEW viw_importances
 AS
     SELECT importance_Sort_ID, Name

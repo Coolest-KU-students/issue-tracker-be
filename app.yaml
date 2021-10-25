@@ -7,3 +7,7 @@ service: backend
 handlers:
   - url: /.*
     script: this field is required, but ignored
+
+automatic_scaling:
+    min_instances: 2
+    max_instances: 4

@@ -1,5 +1,7 @@
 package com.kustudents.issuetracker.service;
 
+import java.util.List;
+
 import com.kustudents.issuetracker.exceptions.ResourceNotFoundException;
 import com.kustudents.issuetracker.model.entity.User;
 import com.kustudents.issuetracker.model.entity.UserCredentials;
@@ -29,8 +31,10 @@ public class UserService {
                 .orElseThrow(() -> new ResourceNotFoundException(login + " does not exist"));
     }
 
-    public Iterable<UserRead> getAllUsers() {
-        return userReadRepository.findAll();
+    public List<UserRead> getAllUsers() {
+        List<UserRead> userReadIterable = userReadRepository.findAll();
+        userReadIterable.removeIf(e -> e.getIsExpired());
+        return userReadIterable;
     }
 
     public void changeUserExpiration(String login) {

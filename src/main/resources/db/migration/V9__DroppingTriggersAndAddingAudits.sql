@@ -1,15 +1,3 @@
-DROP TRIGGER itr_importances;
-DROP TRIGGER utr_importances;
-DROP TRIGGER itr_issues;
-DROP TRIGGER utr_issues;
-DROP TRIGGER itr_issues_steps;
-DROP TRIGGER utr_issues_steps;
-DROP TRIGGER itr_steps;
-DROP TRIGGER utr_steps;
-DROP TRIGGER itr_users;
-DROP TRIGGER utr_users;
-DROP TRIGGER itr_users_credentials;
-DROP TRIGGER utr_users_credentials;
 
 ALTER VIEW viw_importances AS
 select
