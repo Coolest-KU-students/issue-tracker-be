@@ -21,14 +21,14 @@ jobs:
         with:
           java-version: '11'
 
-      - name: Build with Gradle
-        run: gradle build
+      - name: Build with Maven
+        run: mvn clean install
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: java-app
-          path: '${{ github.workspace }}/build/libs/*.jar'
+          path: '${{ github.workspace }}/target/*.war'
 
   deploy:
     runs-on: ubuntu-latest
@@ -49,5 +49,5 @@ jobs:
         with:
           app-name: 'IssuetrackerBE'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_2BE999DAC737414EABB37F8187A0883E }}
-          package: '*.jar'
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F6B65C4A119B4779BAAFFC3E2C76BD01 }}
+          package: '*.war'
