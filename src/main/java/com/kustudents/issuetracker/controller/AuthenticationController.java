@@ -54,7 +54,7 @@ public class AuthenticationController {
     public ResponseEntity<String> register(@RequestBody UserInformation userInformation) {
         authenticationService.register(userInformation.login, userInformation.password, userInformation.firstName,
                 userInformation.lastName, userInformation.changePasswordOnLogin);
-        return new ResponseEntity<>("User successfully created", HttpStatus.CREATED);
+        return new ResponseEntity<>("User successfully createded", HttpStatus.CREATED);
     }
 
 }
