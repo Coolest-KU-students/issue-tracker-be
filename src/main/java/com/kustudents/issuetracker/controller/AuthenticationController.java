@@ -51,7 +51,7 @@ public class AuthenticationController {
 
     @GetMapping("/hello/{name}")
     public String TestingHello(@PathVariable("name") String name) {
-        return "Hello User " + name;
+        return "Hello " + name;
     }
 
     @Transactional
