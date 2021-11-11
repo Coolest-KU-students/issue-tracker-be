@@ -30,7 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
 
         http.csrf().disable().cors().and().authorizeRequests().antMatchers("/api/login").permitAll()
-                .antMatchers("/api/pwChange").permitAll()
+                .antMatchers("/api/pwChange").permitAll().antMatchers("/api/hello/**").permitAll()
                 // TODO: Remove once security is implemented
                 .antMatchers("/api/register").permitAll().anyRequest().authenticated().and()
                 .addFilter(new JwtAuthorizationFilter(authenticationManagerBean(), authenticationService))

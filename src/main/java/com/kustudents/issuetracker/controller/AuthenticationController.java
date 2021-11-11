@@ -49,6 +49,11 @@ public class AuthenticationController {
         return ResponseEntity.ok(new AuthenticationResponse(token, authenticationService.getLoginFromToken(token)));
     }
 
+    @GetMapping("/hello/{name}")
+    public String TestingHello(@PathVariable("name") String name) {
+        return "Hello " + name;
+    }
+
     @Transactional
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody UserInformation userInformation) {
